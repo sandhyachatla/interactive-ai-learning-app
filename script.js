@@ -1,26 +1,34 @@
-console.log("Interactive AI Learning App");
-function askAI(){
 
-let question =
+async function askAI(){
+
+const question =
 document.getElementById("question").value;
 
-let answer = "";
+const response = await fetch(
+  https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AQ.Ab8RN6JqFQv0LLSiDKGxYdfNEvVYLBlH6C_xZi6EISIn_Zs4LQ,
 
-if(question.toLowerCase().includes("photosynthesis")){
-answer =
-"Photosynthesis is the process by which plants make food using sunlight.";
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+contents:[
+{
+parts:[
+{
+text:question
 }
-
-else if(question.toLowerCase().includes("newton")){
-answer =
-"Newton's First Law states that an object remains at rest or in motion unless acted upon by an external force.";
+]
 }
-
-else{
-answer =
-"AI Tutor is still learning. More topics will be added soon.";
+]
+})
 }
+);
 
-document.getElementById("answer").innerHTML = answer;
+const data = await response.json();
+
+document.getElementById("answer").innerHTML =
+data.candidates[0].content.parts[0].text;
 
 }
