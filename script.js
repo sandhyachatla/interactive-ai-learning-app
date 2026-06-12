@@ -132,5 +132,7 @@ document.getElementById("quizResult").innerHTML =
 
 document.getElementById("score").innerHTML =
 score;
+document.getElementById("totalScore").innerHTML = score;
 
+document.getElementById("progress").innerHTML = score * 10;
 }
