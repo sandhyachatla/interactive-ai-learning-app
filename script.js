@@ -129,7 +129,41 @@ if(subject==="Physics"){
 content =
 "Physics deals with matter, energy and forces.";
 }
+function downloadNotes(){
 
+let text =
+document.getElementById(
+"subjectContent"
+).innerText;
+
+let element =
+document.createElement("a");
+
+element.setAttribute(
+"href",
+"data:text/plain;charset=utf-8," +
+encodeURIComponent(text)
+);
+
+element.setAttribute(
+"download",
+"notes.txt"
+);
+
+element.style.display =
+"none";
+
+document.body.appendChild(
+element
+);
+
+element.click();
+
+document.body.removeChild(
+element
+);
+
+}
 else if(subject==="Chemistry"){
 content =
 "Chemistry studies substances and their reactions.";
