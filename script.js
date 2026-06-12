@@ -88,6 +88,17 @@ camera
 }
 
 animate();
+  function speakAnswer(){
+
+let answer =
+document.getElementById("answer").innerText;
+
+let speech =
+new SpeechSynthesisUtterance(answer);
+
+speechSynthesis.speak(speech);
+
+}
 if(answer==="Delhi"){
 
 document.getElementById("quizResult").innerHTML =
