@@ -46,3 +46,8 @@ border:1px solid gray;
 button{
 margin:5px;
 }
+#cube3d{
+width:300px;
+height:300px;
+margin:auto;
+}
