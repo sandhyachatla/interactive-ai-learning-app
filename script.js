@@ -1,257 +1,179 @@
-
-async function askAI(){
-
-const question =
-document.getElementById("question").value;
-
-const response = await fetch(
-  https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AQ.Ab8RN6JqFQv0LLSiDKGxYdfNEvVYLBlH6C_xZi6EISIn_Zs4LQ,
-
-{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-contents:[
-{
-parts:[
-{
-text:question
-}
-]
-}
-]
-})
-}
-);
-
-const data = await response.json();
-
-document.getElementById("answer").innerHTML =
-data.candidates[0].content.parts[0].text;
-
-}
 let score = 0;
 
-function checkAnswer(answer){
-const scene = new THREE.Scene();
+// ================= AI TUTOR =================
+async function askAI() {
+  const question = document.getElementById("question").value;
 
-const camera = new THREE.PerspectiveCamera(
-75,
-1,
-0.1,
-1000
-);
+  try {
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YOUR_API_KEY",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: question }]
+            }
+          ]
+        })
+      }
+    );
 
-const renderer = new THREE.WebGLRenderer();
+    const data = await response.json();
 
-renderer.setSize(300,300);
+    const answer =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "No response received";
 
-document.getElementById("cube3d")
-.appendChild(renderer.domElement);
+    document.getElementById("answer").innerText = answer;
 
-const geometry =
-new THREE.BoxGeometry();
-
-const material =
-new THREE.MeshBasicMaterial({
-color:0x007bff,
-wireframe:true
-});
-
-const cube =
-new THREE.Mesh(
-geometry,
-material
-);
-
-scene.add(cube);
-
-camera.position.z = 3;
-
-function animate(){
-
-requestAnimationFrame(
-animate
-);
-
-cube.rotation.x += 0.01;
-
-cube.rotation.y += 0.01;
-
-renderer.render(
-scene,
-camera
-);
-
+  } catch (error) {
+    document.getElementById("answer").innerText =
+      "Error connecting to AI";
+  }
 }
 
-animate();
-  function speakAnswer(){
-
-let answer =
-document.getElementById("answer").innerText;
-
-let speech =
-new SpeechSynthesisUtterance(answer);
-
-speechSynthesis.speak(speech);
-function startListening(){
-
-const recognition =
-new webkitSpeechRecognition();
-
-recognition.lang = "en-US";
-
-recognition.start();
-
-recognition.onresult = function(event){
-
-document.getElementById("question").value =
-event.results[0][0].transcript;
-
-};
-
-}
-function toggleDarkMode(){
-
-document.body.classList.toggle(
-"dark-mode"
-);
-
-}
-function showSubject(subject){
-
-let content = "";
-
-if(subject==="Physics"){
-content =
-"Physics deals with matter, energy and forces.";
-}
-function downloadNotes(){
-
-let text =
-document.getElementById(
-"subjectContent"
-).innerText;
-
-let element =
-document.createElement("a");
-
-element.setAttribute(
-"href",
-"data:text/plain;charset=utf-8," +
-encodeURIComponent(text)
-);
-
-element.setAttribute(
-"download",
-"notes.txt"
-);
-
-element.style.display =
-"none";
-
-document.body.appendChild(
-element
-);
-
-element.click();
-
-document.body.removeChild(
-element
-);
-
-}
-else if(subject==="Chemistry"){
-content =
-"Chemistry studies substances and their reactions.";
+// ================= SPEECH =================
+function speakAnswer() {
+  let text = document.getElementById("answer").innerText;
+  let speech = new SpeechSynthesisUtterance(text);
+  speechSynthesis.speak(speech);
 }
 
-else if(subject==="Biology"){
-content =
-"Biology is the study of living organisms.";
+function startListening() {
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = "en-US";
+
+  recognition.start();
+
+  recognition.onresult = function (event) {
+    document.getElementById("question").value =
+      event.results[0][0].transcript;
+  };
 }
 
-else if(subject==="Mathematics"){
-content =
-"Mathematics deals with numbers and calculations.";
+// ================= DARK MODE =================
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
 }
 
-document.getElementById(
-"subjectContent"
-).innerHTML = content;
+// ================= SUBJECTS =================
+function showSubject(subject) {
+  let content = "";
 
-}    
-}
-function signup(){
+  if (subject === "Physics") {
+    content = "Physics deals with matter, energy and forces.";
+  } else if (subject === "Chemistry") {
+    content = "Chemistry studies substances and their reactions.";
+  } else if (subject === "Biology") {
+    content = "Biology is the study of living organisms.";
+  } else if (subject === "Mathematics") {
+    content = "Mathematics deals with numbers and calculations.";
+  }
 
-let username =
-document.getElementById(
-"username"
-).value;
-
-localStorage.setItem(
-"user",
-username
-);
-
-document.getElementById(
-"loginMessage"
-).innerHTML =
-"Signup Successful!";
-
+  document.getElementById("subjectContent").innerText = content;
 }
 
-function login(){
+// ================= NOTES DOWNLOAD =================
+function downloadNotes() {
+  let text = document.getElementById("subjectContent").innerText;
 
-let username =
-document.getElementById(
-"username"
-).value;
+  let element = document.createElement("a");
+  element.setAttribute(
+    "href",
+    "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+  );
+  element.setAttribute("download", "notes.txt");
 
-let savedUser =
-localStorage.getItem(
-"user"
-);
-
-if(username===savedUser){
-
-document.getElementById(
-"loginMessage"
-).innerHTML =
-"Login Successful!";
-
-}
-else{
-
-document.getElementById(
-"loginMessage"
-).innerHTML =
-"User not found!";
-
+  element.style.display = "none";
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
 }
 
-}  
-if(answer==="Delhi"){
+// ================= LOGIN SYSTEM =================
+function signup() {
+  let username = document.getElementById("username").value;
 
-document.getElementById("quizResult").innerHTML =
-"Correct Answer!";
+  localStorage.setItem("user", username);
 
-score++;
-
-}
-else{
-
-document.getElementById("quizResult").innerHTML =
-"Wrong Answer!";
-
+  document.getElementById("loginMessage").innerText =
+    "Signup Successful!";
 }
 
-document.getElementById("score").innerHTML =
-score;
-document.getElementById("totalScore").innerHTML = score;
+function login() {
+  let username = document.getElementById("username").value;
+  let savedUser = localStorage.getItem("user");
 
-document.getElementById("progress").innerHTML = score * 10;
+  if (username === savedUser) {
+    document.getElementById("loginMessage").innerText =
+      "Login Successful!";
+  } else {
+    document.getElementById("loginMessage").innerText =
+      "User not found!";
+  }
+}
+
+// ================= QUIZ =================
+function checkAnswer(answer) {
+  const correct = "Delhi";
+
+  if (answer === correct) {
+    document.getElementById("quizResult").innerText =
+      "Correct Answer!";
+    score++;
+  } else {
+    document.getElementById("quizResult").innerText =
+      "Wrong Answer!";
+  }
+
+  document.getElementById("score").innerText = score;
+  document.getElementById("totalScore").innerText = score;
+  document.getElementById("progress").innerText = score * 10;
+
+  load3D(); // show cube after answer
+}
+
+// ================= 3D CUBE (FIXED) =================
+let scene, camera, renderer, cube;
+let cubeCreated = false;
+
+function load3D() {
+  if (cubeCreated) return; // prevent duplicates
+
+  scene = new THREE.Scene();
+
+  camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setSize(300, 300);
+
+  document.getElementById("cube3d").appendChild(renderer.domElement);
+
+  let geometry = new THREE.BoxGeometry();
+
+  let material = new THREE.MeshBasicMaterial({
+    color: 0x007bff,
+    wireframe: true
+  });
+
+  cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  camera.position.z = 3;
+
+  function animate() {
+    requestAnimationFrame(animate);
+
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+  cubeCreated = true;
 }
