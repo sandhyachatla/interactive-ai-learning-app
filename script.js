@@ -120,6 +120,35 @@ document.body.classList.toggle(
 "dark-mode"
 );
 
+}
+function showSubject(subject){
+
+let content = "";
+
+if(subject==="Physics"){
+content =
+"Physics deals with matter, energy and forces.";
+}
+
+else if(subject==="Chemistry"){
+content =
+"Chemistry studies substances and their reactions.";
+}
+
+else if(subject==="Biology"){
+content =
+"Biology is the study of living organisms.";
+}
+
+else if(subject==="Mathematics"){
+content =
+"Mathematics deals with numbers and calculations.";
+}
+
+document.getElementById(
+"subjectContent"
+).innerHTML = content;
+
 }    
 }
 if(answer==="Delhi"){
