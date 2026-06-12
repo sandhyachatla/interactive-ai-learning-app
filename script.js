@@ -97,7 +97,23 @@ let speech =
 new SpeechSynthesisUtterance(answer);
 
 speechSynthesis.speak(speech);
+function startListening(){
 
+const recognition =
+new webkitSpeechRecognition();
+
+recognition.lang = "en-US";
+
+recognition.start();
+
+recognition.onresult = function(event){
+
+document.getElementById("question").value =
+event.results[0][0].transcript;
+
+};
+
+}
 }
 if(answer==="Delhi"){
 
