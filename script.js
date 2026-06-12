@@ -32,3 +32,26 @@ document.getElementById("answer").innerHTML =
 data.candidates[0].content.parts[0].text;
 
 }
+let score = 0;
+
+function checkAnswer(answer){
+
+if(answer==="Delhi"){
+
+document.getElementById("quizResult").innerHTML =
+"Correct Answer!";
+
+score++;
+
+}
+else{
+
+document.getElementById("quizResult").innerHTML =
+"Wrong Answer!";
+
+}
+
+document.getElementById("score").innerHTML =
+score;
+
+}
