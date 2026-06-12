@@ -1,66 +1,102 @@
-body{
-font-family:Arial;
-background:#f0f2f5;
-margin:0;
+body {
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  margin: 0;
+  transition: 0.3s;
 }
 
-header{
-background:#007bff;
-color:white;
-padding:30px;
-text-align:center;
+/* HEADER */
+header {
+  background: #007bff;
+  color: white;
+  padding: 25px;
+  text-align: center;
 }
 
-.container{
-display:flex;
-justify-content:center;
-gap:20px;
-padding:30px;
-flex-wrap:wrap;
+/* CONTAINER */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 30px;
+  flex-wrap: wrap;
 }
 
-.card{
-background:white;
-padding:20px;
-width:250px;
-border-radius:15px;
-box-shadow:0 0 10px gray;
-text-align:center;
+/* CARD */
+.card {
+  background: white;
+  padding: 20px;
+  width: 260px;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  text-align: center;
+  transition: 0.3s;
 }
 
-button{
-background:#007bff;
-color:white;
-border:none;
-padding:10px 20px;
-border-radius:10px;
-cursor:pointer;
-}
-input{
-width:80%;
-padding:10px;
-margin:10px;
-border-radius:10px;
-border:1px solid gray;
-}
-button{
-margin:5px;
-}
-#cube3d{
-width:300px;
-height:300px;
-margin:auto;
-}
-span{
-font-weight:bold;
-color:green;
-}
-.dark-mode{
-background:black;
-color:white;
+/* BUTTON */
+button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  transition: 0.2s;
 }
 
-.dark-mode .card{
-background:#222;
-color:white;
+button:hover {
+  background: #0056b3;
+}
+
+/* INPUT */
+input {
+  width: 85%;
+  padding: 10px;
+  margin: 8px;
+  border-radius: 10px;
+  border: 1px solid gray;
+}
+
+/* 3D BOX */
+#cube3d {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+}
+
+/* SCORE TEXT */
+span {
+  font-weight: bold;
+  color: green;
+}
+
+/* DARK MODE */
+.dark-mode {
+  background: #121212;
+  color: white;
+}
+
+.dark-mode header {
+  background: #1f1f1f;
+}
+
+.dark-mode .card {
+  background: #1e1e1e;
+  color: white;
+  box-shadow: 0 0 10px black;
+}
+
+.dark-mode input {
+  background: #2a2a2a;
+  color: white;
+  border: 1px solid #555;
+}
+
+.dark-mode button {
+  background: #333;
+}
+
+.dark-mode button:hover {
+  background: #555;
 }
