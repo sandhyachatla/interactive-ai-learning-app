@@ -55,3 +55,12 @@ span{
 font-weight:bold;
 color:green;
 }
+.dark-mode{
+background:black;
+color:white;
+}
+
+.dark-mode .card{
+background:#222;
+color:white;
+}
