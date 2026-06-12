@@ -185,6 +185,55 @@ document.getElementById(
 
 }    
 }
+function signup(){
+
+let username =
+document.getElementById(
+"username"
+).value;
+
+localStorage.setItem(
+"user",
+username
+);
+
+document.getElementById(
+"loginMessage"
+).innerHTML =
+"Signup Successful!";
+
+}
+
+function login(){
+
+let username =
+document.getElementById(
+"username"
+).value;
+
+let savedUser =
+localStorage.getItem(
+"user"
+);
+
+if(username===savedUser){
+
+document.getElementById(
+"loginMessage"
+).innerHTML =
+"Login Successful!";
+
+}
+else{
+
+document.getElementById(
+"loginMessage"
+).innerHTML =
+"User not found!";
+
+}
+
+}  
 if(answer==="Delhi"){
 
 document.getElementById("quizResult").innerHTML =
