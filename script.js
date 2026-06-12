@@ -114,6 +114,13 @@ event.results[0][0].transcript;
 };
 
 }
+function toggleDarkMode(){
+
+document.body.classList.toggle(
+"dark-mode"
+);
+
+}    
 }
 if(answer==="Delhi"){
 
